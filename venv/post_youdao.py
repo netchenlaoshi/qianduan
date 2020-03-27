@@ -1,6 +1,6 @@
 import requests
 
-url = http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule
+url = "http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule"
 form_data = {
     'i': '我和你',
     'from': 'AUTO',
