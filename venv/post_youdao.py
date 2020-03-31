@@ -12,10 +12,6 @@ def get_sign():
 
 
 def get_ts():
-    import time
-    t = time.time()
-    ts = str(int(round(t * 1000)))
-
     return '1584684322970'
 
 
