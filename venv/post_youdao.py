@@ -2,43 +2,76 @@ import requests
 import time
 import random
 
-url = "http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule"
 
 
-def get_salt():
-    s=str(random.randint(0,10))
-    t=get_ts()
-    # print("random=",s)
-    # print("ts=",t)
-    # print("salt=",t+s)
-    return t+s
-    #return '15846843229702'
+class  Youdao():
+    def __init__(self,content):
+        self.content=content
+        self.url="http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule"
+        self.ts=self.get_ts()
+        self.salt=self.get_salt()
+        self.sign=self.get_sign()
+
+    def get_salt(self):
+        s = str(random.randint(0,10))
+        t = self.ts
+        return t + s
+
+    def get_md5(self,value):
+        import hashlib
+        m=hashlib.md5()
+        m.update(value.encode("utf_8"))
+        return m.hexdigest()
 
 
-def get_sign():
-    return '675ff9174c055d8393e20bb793d78af3'
+    def get_sign(self):
+        i=self.salt
+        e=self.content
+        s="fanyideskweb" + e + i + "Nw(nmmbP%A-r6U3EUn]Aj"
+        return  self.get_md5(s)
 
 
-def get_ts():
-    t=time.time()
-    ts=str(int(round((t*1000))))
-    return ts
-    #return '1584684322970'
+    def get_ts(self):
+        t=time.time()
+        ts=str(int(round((t * 1000))))
+        return ts
 
 
-form_data = {
-    'i': '我和你',
-    'from': 'AUTO',
-    'smartresult': 'dict',
-    'client': 'fanyideskweb',
-    'salt': get_salt(),
-    'sign': get_sign(),
-    'ts': get_ts(),
-    'bv': '901200199a98c590144a961dac532964',
-    'doctype': 'json',
-    'version': '2.1',
-    'keyfrom': 'fanyi.web',
-    'action': 'FY_BY_REALTlME'
-}
-response=requests.post(url, data=form_data)
-print(response.text)
+    def get_content(self):
+        return content
+
+    def yield_from_date(self):
+        form_data = {
+            'i': self.content,
+            'from': 'AUTO',
+            'to': 'AUTO',
+            'smartresult': 'dict',
+            'client': 'fanyideskweb',
+            'salt': self.salt,
+            'sign': self.sign,
+            'ts': self.ts,
+            'bv': '901200199a98c590144a961dac532964',
+            'doctype': 'json',
+            'version': '2.1',
+            'keyfrom': 'fanyi.web',
+            'action': 'FY_BY_REALTlME'
+        }
+        return form_data
+
+    def get_headers(self):
+        headers={
+            'Cookie': 'OUTFOX_SEARCH_USER_ID=1642851027@10.108.160.19; OUTFOX_SEARCH_USER_ID_NCOO=441166479.7229449; JSESSIONID=aaaRKX0T_ENEK5bCAxYfx; ___rl__test__cookies=1586761682607',
+            'Referer': 'http: // fanyi.youdao.com /',
+            'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
+        }
+        return headers
+
+    def fanyi(self):
+        response=requests.post(self.url, data=self.yield_from_date(),headers=self.get_headers())
+        return response.text
+
+
+if __name__ == '__main__':
+    youdao= Youdao('我们')
+    print(youdao.fanyi())
+
