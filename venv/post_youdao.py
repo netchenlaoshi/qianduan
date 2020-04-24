@@ -53,7 +53,7 @@ class  Youdao():
         return {
             'Cookie': 'OUTFOX_SEARCH_USER_ID=1642851027@10.108.160.19; OUTFOX_SEARCH_USER_ID_NCOO=441166479.7229449; JSESSIONID=aaaRKX0T_ENEK5bCAxYfx; ___rl__test__cookies=1586761682607',
             'Referer': 'http: // fanyi.youdao.com /',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windofile:///C:/project/MyHtml/Bootstrap/container.htmlws NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
         }
 
     def fanyi(self):
@@ -66,7 +66,9 @@ class  Youdao():
 
 if __name__ == '__main__':
     while(True):
-        i=input("please input : ")
-        youdao= Youdao(i)
-        print("translate result : ",youdao.fanyi())
-
+        try:
+            i=input("please input : ")
+            youdao= Youdao(i)
+            print("translate result : ",youdao.fanyi())
+        except:
+            pass
