@@ -12,4 +12,7 @@ class StockspiderItem(scrapy.Item):
     code = scrapy.Field()
     name=scrapy.Field()
     liutongshizhi=scrapy.Field()
+    zongshizhi=scrapy.Field()
+    liutongguben=scrapy.Field()
+    zongguben=scrapy.Field()
     pass
